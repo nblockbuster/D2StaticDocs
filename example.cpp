@@ -38,7 +38,6 @@ int main()
 
 	FILE* vbFile = nullptr;
 	fopen_s(&vbFile, vbufferpath.c_str(), "rb");
-	int curpos = ftell(vbFile);
 	int e = 0;
 	int c;
 	while ((c = fgetc(vbFile)) != EOF)
@@ -47,13 +46,19 @@ int main()
 		if (e < 1)
 			fseek(vbFile, 0, SEEK_SET);
 
+		//initialize ints to read the position data to
+
 		int16_t ix;
 		int16_t iy;
 		int16_t iz;
 
+		//read position data
+
 		fread((char*)&ix, 1, 2, vbFile);
 		fread((char*)&iy, 1, 2, vbFile);
 		fread((char*)&iz, 1, 2, vbFile);
+
+		//convert to float
 
 		float xPos1((float)ix);
 		float yPos1((float)iy);
@@ -64,16 +69,14 @@ int main()
 		int scaleX = 1;
 		int scaleY = 1;
 		int scaleZ = 1;
-	
+
 		//divide by int16 max to get vertex position as float value
+
 		double xPos((xPos1 / 32767) * scaleX);
 		double yPos((yPos1 / 32767) * scaleY);
 		double zPos((zPos1 / 32767) * scaleZ);
 
-		std::string outXYZ;
-		outXYZ = "v " + to_str(xPos, 6) + " " + to_str(yPos, 6) + " " + to_str(zPos, 6) + "\n";
-
-		curpos = ftell(vbFile);
+		std::string outXYZ = "v " + to_str(xPos, 6) + " " + to_str(yPos, 6) + " " + to_str(zPos, 6) + "\n";
 
 		std::string outfile = outputFile + ".obj";
 		filePutContents(outfile, outXYZ, true);
