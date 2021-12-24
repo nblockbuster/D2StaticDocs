@@ -1,4 +1,4 @@
-# Destiny 2 Static Model Extractor
+# Destiny 2 Static Model Docs
 
 **This wouldn't be possible without the (massive) help from:**
 ## [Monteven](https://github.com/MontagueM), [42](https://github.com/hiim42) & [Ginsor](https://twitter.com/ginsorkr)
@@ -9,7 +9,9 @@
 - Basic to intermediate C++/general coding knowledge.
 - (perferrably) a good knowledge of how 3d models work in general
 
-Note: These file codenames are probably unique and not called this by anyone besides me & maybe 42, who had helped me with this adventure tremendously.
+Notes: 
+- These file codenames are probably unique and not called this by anyone besides me & maybe 42, who had helped me with this adventure tremendously.
+- I do all of my coding and documentation in little endian, so classes will be like `AD938080` instead of `808093AD`
 
 ## Model Structures
 
@@ -33,3 +35,23 @@ float zPos1((float)(iz / 32767));
 This is the most simple way to get a model, and all you need to do is skip the next 10 bytes and repeat until the end of the file.
 
 **Index Buffers** are simply a list of int16s, with 3 int16s/triangle/face (kinda obvious) *but* you either need to increase each index by 1, so that whatever program you use to open models doesnt have a freak out when it sees an index of 0.
+
+## Classes & Entry types
+
+The different buffers use data from the package's entry table to identify them as what they are.
+I use this way of identifying entry types, with numType being `(entryB >> 9) & 0x7F`, and numSubType being `(entryB >> 6) & 0x7`
+
+| Buffer | NumType | NumSubType |
+|--------------|------|------|
+| Vertex Buffers | 40 | 4 | 
+| Index Buffers | 40 | 6 |
+
+The other way of files being identified is through the file's entryA data, as a hex string.
+Loadzones, main model files, and subfiles all use this way of identifying the files.
+| File type | Class |
+|-----------|------------|
+| Loadzones | AD938080 |
+| Main Models | 446D8080 |
+| Subfiles | 306D8080 |
+
+#### If a file's entryA ends in 80 instead of 8080, it will almost always use an entry type.
