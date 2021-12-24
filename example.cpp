@@ -1,5 +1,5 @@
-// This isn't a full working example, mostly because I'm writing this while at a christmas party.
-// (basically find what imports are needed for this to work lmao)
+// This example may or may not work, I haven't tested it.
+// There could be some missing imports as well.
 // This also only shows how to parse a vertex buffer.
 
 //ease of use cus why not
