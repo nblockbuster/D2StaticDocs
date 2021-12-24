@@ -12,7 +12,7 @@
 Notes: 
 - These file codenames are probably unique and not called this by anyone besides me & maybe 42, who had helped me with this adventure tremendously.
 - I do all of my coding and documentation in little endian, so classes will be like `AD938080` instead of `808093AD`
-- Loadzone files are *pain*. If you want, you can try and parse them but be warned, it's not very beginner friendly
+- Loadzone files are somewhat *pain*. If you want, you can try and parse them but be warned, it's not very beginner friendly
 
 ## Model Structures
 
