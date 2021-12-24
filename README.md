@@ -1,7 +1,7 @@
 # Destiny 2 Static Model Extractor
 
 **This wouldn't be possible without the (massive) help from:**
-## [Monteven](https://github.com/MontagueM/), [42](https://github.com/hiim42) & [Ginsor](https://twitter.com/ginsorkr)
+## [Monteven](https://github.com/MontagueM), [42](https://github.com/hiim42) & [Ginsor](https://twitter.com/ginsorkr)
 
 ### Prerequisites
 - An unpacker for Destiny 2 (post-beyond light).
@@ -16,7 +16,7 @@ Note: These file codenames are probably unique and not called this by anyone bes
 **"Main Model"** files are basically the top-level file for 1 model. This file contains a hash that points to the model's subfile at 0x8, and 3 float32s for scale at 0x3C.
 
 **"Subfile"** files are the next step towards a complete model, being referenced in a Main Model file. Subfiles have 3-4 hashes that each point to a different buffer of the model. The index buffer, vertex buffer, and 2 others, most likely being the  UVs & vertex color.
-The buffer hashes can be found at 366D8080 + 4.
+The buffer hashes can be found at wherever 366D8080 is + 4.
 
 **Vertex Buffers** are the most basic form of a model. The file is a list of points, read as a int16 and then divided by the int16 max (32767) to get a float.
 Vertex positions are the first 8 bytes of each 16 byte line, with the last 8 bytes of it being the normals. (I haven't figured out normals, so can ignore these)
