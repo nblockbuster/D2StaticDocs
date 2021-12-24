@@ -32,12 +32,6 @@ int main()
   std::cout << "Output File Name: ";
   std::cin >> outputFile;
   
-  std::ifstream vbf;
-  vbf.open(vbufferpath.c_str(), std::ios_base::binary);
-  vbf.seekg(0, vbf.end);
-  int vbsize = vbf.tellg();
-  vbf.close();
-  
   FILE* vbFile = nullptr;
   fopen_s(&vbFile, vbufferpath.c_str(), "rb");
   int e = 0;
