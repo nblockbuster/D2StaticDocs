@@ -38,12 +38,12 @@ float z((float)(intz / 32767));
 ```
 This is the most simple way to get a model, and all you need to do is skip the next 10 bytes and repeat until the end of the file.
 
-### [Full example of how to parse a vertex buffer in C++](example.cpp)
+### [Full example of how to parse a vertex buffer in C++](examples/vertices.cpp)
 
 #### Index Buffers 
 describe the faces of the model and how they connect the vertices. They are simply a list of int16s, with 3 int16s/triangle/face (kinda obvious) *but* you either need to increase each index by 1, so that whatever program you use to open models doesnt have a freak out when it sees an index of 0.
 
-### [Full example of parsing a vertex & index buffer in C++](indexexample.cpp)
+### [Full example of parsing a vertex & index buffer in C++](examples/indexes.cpp)
 
 ## Classes & Entry types
 
