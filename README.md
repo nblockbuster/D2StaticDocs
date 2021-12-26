@@ -17,7 +17,7 @@ Notes:
 ## Model Structures
 
 #### Main Model
-files are basically the top-level file for 1 model. This file contains a hash that points to the model's subfile at 0x8, and 3 float32s for scale at 0x3C.
+files are basically the top-level file for 1 model. They are the files that are referenced in map files. This file contains a hash that points to the model's subfile at 0x8, and 3 float32s for scale at 0x3C. The hashes listed at the bottom of the Main Model File reference some kind of material files.
 
 #### Subfiles
 are the next step towards a complete model, being referenced in a Main Model file. Subfiles have 3-4 hashes that each point to a different buffer of the model. The index buffer, vertex buffer, and 2 others, most likely being the  UVs & vertex color.
@@ -41,7 +41,7 @@ This is the most simple way to get a model, and all you need to do is skip the n
 ### [Full example of how to parse a vertex buffer in C++](example.cpp)
 
 #### Index Buffers 
-are simply a list of int16s, with 3 int16s/triangle/face (kinda obvious) *but* you either need to increase each index by 1, so that whatever program you use to open models doesnt have a freak out when it sees an index of 0.
+describe the faces of the model and how they connect the vertices. They are simply a list of int16s, with 3 int16s/triangle/face (kinda obvious) *but* you either need to increase each index by 1, so that whatever program you use to open models doesnt have a freak out when it sees an index of 0.
 
 ## Classes & Entry types
 
