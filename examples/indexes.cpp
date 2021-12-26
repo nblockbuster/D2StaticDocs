@@ -16,7 +16,6 @@ void filePutContents(const std::string& name, const std::string& content, bool a
 		outfile.open(name);
 	outfile << content;
 }
-
 template <typename T>
 std::string to_str(const T a_value, const int n = 6)
 {
@@ -172,7 +171,4 @@ int main()
 			//output a tri
 		}
 	}
-	std::cout << "reached end\n";
-	exit(1);
-	//this didnt fix it, darn
 }

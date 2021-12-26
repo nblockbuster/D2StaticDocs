@@ -64,17 +64,15 @@ int main()
 		float yPos1((float)iy);
 		float zPos1((float)iz);
 
-		//leftover, scale is found in main model at 0x3C
+		//scale is found in main model at 0x3C. since we aren't parsing scale it's just 1
 
-		int scaleX = 1;
-		int scaleY = 1;
-		int scaleZ = 1;
+		float scale = 1;
 
 		//divide by int16 max to get vertex position as float value
 
-		double xPos((xPos1 / 32767) * scaleX);
-		double yPos((yPos1 / 32767) * scaleY);
-		double zPos((zPos1 / 32767) * scaleZ);
+		double xPos((xPos1 / 32767) * scale);
+		double yPos((yPos1 / 32767) * scale);
+		double zPos((zPos1 / 32767) * scale);
 
 		std::string outXYZ = "v " + to_str(xPos, 6) + " " + to_str(yPos, 6) + " " + to_str(zPos, 6) + "\n";
 
