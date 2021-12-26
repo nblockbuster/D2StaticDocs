@@ -43,6 +43,8 @@ This is the most simple way to get a model, and all you need to do is skip the n
 #### Index Buffers 
 describe the faces of the model and how they connect the vertices. They are simply a list of int16s, with 3 int16s/triangle/face (kinda obvious) *but* you either need to increase each index by 1, so that whatever program you use to open models doesnt have a freak out when it sees an index of 0.
 
+### [Full example of parsing a vertex & index buffer in C++](indexexample.cpp)
+
 ## Classes & Entry types
 
 The different buffers use data from the package's entry table to identify them as what they are.
