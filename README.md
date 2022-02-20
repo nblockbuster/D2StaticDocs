@@ -32,9 +32,9 @@ fread((char*)&intx, 1, 2, vbuffer);
 fread((char*)&inty, 1, 2, vbuffer);
 fread((char*)&intz, 1, 2, vbuffer);
 
-float x((float)(intx / 32767));
-float y((float)(inty / 32767));
-float z((float)(intz / 32767));
+float x = (float)intx / 32767;
+float y = (float)inty / 32767;
+float z = (float)intz / 32767;
 ```
 This is the most simple way to get a model, and all you need to do is skip the next 10 bytes and repeat until the end of the file.
 
