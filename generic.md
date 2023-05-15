@@ -3,6 +3,7 @@ Hashes in Destiny are 32 or 64 bit integers that are used to reference other fil
 
 ### 32 bit hashes
 Format: `0x[8 digit hex]`
+
 | Length (bits) | Description          |
 | ------------- | -------------------- |
 | 10            | Unknown ID           |
@@ -21,6 +22,7 @@ void getHashInfo(uint32_t hash, uint32_t& packageID, uint32_t& entryID) {
 
 ### 64 bit hashes
 Format: `0x[16 digit hex]`
+
 64 bit hashes are a bit more complicated than 32 bit hashes, as they are mostly-static hashes that are assigned a 32 bit hash.
 In order to get the 32 bit hash from a 64 bit hash, you need to read each package's [hash64 table.](https://github.com/MontagueM/DestinyUnpackerCPP/blob/main/package.cpp#L421)
 After that, the 32 bit hash is just a normal 32 bit hash.
