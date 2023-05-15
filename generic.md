@@ -9,6 +9,7 @@ Format: `0x[8 digit hex]`
 | 9             | Reference Package ID |
 | 7             | Reference Entry ID   |
 | 13            | Reference ID         |
+
 Hashes are used to find what package and where in the package a file is located.
 To retrieve the package ID and index in the entry table from a hash, you can use this C++ function:
 ```c++
@@ -35,6 +36,7 @@ They are 16 bytes long, and are formatted like this:
 | ------ | ------------------------ | ---- |
 | 0x0    | Table size               | u64  |
 | 0x8    | Relative offset to table | u64  |
+
 ## Relative Pointers
 Relative pointers are used to reference a spot in the same file.
 They are 8 bytes long, and are formatted like this:
