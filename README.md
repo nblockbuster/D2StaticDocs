@@ -94,9 +94,9 @@ memcpy((char*)&intx, vbuffer_data + i, 2);
 memcpy((char*)&inty, vbuffer_data + i + 2, 2);
 memcpy((char*)&intz, vbuffer_data + i + 4, 2);
 
-float x((float)(intx / 32767));
-float y((float)(inty / 32767));
-float z((float)(intz / 32767));
+float x = (float)intx / 32767;
+float y = (float)inty / 32767;
+float z = (float)intz / 32767;
 ```
 This is the most simple way to get a model, and all you need to do is skip the next 10 bytes (vertex normals) and repeat until the end of the file.
 
@@ -107,6 +107,10 @@ Index Buffers describe the faces of the model and how they connect the vertices.
 
 **[Full example of parsing an index buffer in C++](https://github.com/nblockbuster/D2StaticExtractor/blob/loadzone_bubble_testing/parsers.cpp#L84)**
 
+
+## In-Memory parsing & FBX
+
+For examples of in-memory parsing & FBX SDK usage, check out [the extractor](https://github.com/nblockbuster/D2StaticExtractor/blob/main/main.cpp)'s code.
 
 ## Classes & Entry types
 
