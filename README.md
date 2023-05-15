@@ -23,29 +23,28 @@ Some terms you'll want to learn:
 ## Main Model
 Main Model files are basically the top-level file for 1 model. They are the files that are referenced in static loadzone files.
 
-| Offset  | Description              | Type          |
-| ------- | ------------------------ | ------------- |
-| 0x08    | Subfile Hash             | 32 bit hash   |
-| 0x18    | Material table           | Table Pointer |
-| 0x50-5C | Vertex position offsets? | Vector4       |
-| 0x50    | X                        | float32       |
-| 0x54    | Y                        | float32       |
-| 0x58    | Z                        | float32       |
-| 0x5C    | W (Scale)                | float32       |
+| Offset  | Description                  | Type          |
+| ------- | ---------------------------- | ------------- |
+| 0x08    | [Subfile Hash](#subfiles)    | 32 bit hash   |
+| 0x18    | [Material table](#materials) | Table Pointer |
+| 0x50-5C | Vertex position offsets?     | Vector4       |
+| 0x50    | X                            | float32       |
+| 0x54    | Y                            | float32       |
+| 0x58    | Z                            | float32       |
+| 0x5C    | W (Scale)                    | float32       |
 
 ## Subfiles
-Subfiles are the next step towards a complete model, being referenced in a Main Model file. Subfiles have 3-4 hashes that each point to a different buffer of the model. The index buffer, vertex buffer, and 2 others, most likely being the  UVs & vertex color.
-The buffer hashes can be found at wherever 366D8080 is + 4.
+Subfiles are the next step towards a complete model, being referenced in a Main Model file.
 
-| Offset | Description               | Type          |
-| ------ | ------------------------- | ------------- |
-| 0x08   | Material Assignment Table | Table Pointer |
-| 0x18   | LOD/Parts Table           | Table Pointer |
-| 0x28   | Buffer Table              | Table Pointer |
-| 0x48   | UV X Scale                | float32       |
-| 0x50   | UV Y Scale                | float32       |
-| 0x54   | UV X Offset               | float32       |
-| 0x58   | UV Y Offset               | float32       |
+| Offset | Description                                        | Type          |
+| ------ | -------------------------------------------------- | ------------- |
+| 0x08   | [Material Assignment Table](#material-assignments) | Table Pointer |
+| 0x18   | [LOD/Parts Table](#levels-of-details--parts)       | Table Pointer |
+| 0x28   | [Buffer Table](#buffers)                           | Table Pointer |
+| 0x48   | UV X Scale                                         | float32       |
+| 0x50   | UV Y Scale                                         | float32       |
+| 0x54   | UV X Offset                                        | float32       |
+| 0x58   | UV Y Offset                                        | float32       |
 
 ## Material Assignments
 Size: 0x6
@@ -58,6 +57,7 @@ Size: 0x6
 
 ## Levels of Details / Parts
 Size: 0xC
+
 The LOD table can be found in the subfile of a model at `0x18` as a table pointer.
 The table is a list of 4 byte floats, with the first 2 being the LODs and the last 2 being the material splits.
 
@@ -75,17 +75,18 @@ The table is a list of 4 byte floats, with the first 2 being the LODs and the la
 
 ## Buffers
 Size: 0x14
-| Offset | Description         | Type                 |
-| ------ | ------------------- | -------------------- |
-| 0x00   | Index Buffer        | 32 bit hash          |
-| 0x04   | Vertex Buffer       | 32 bit hash          |
-| 0x08   | UV Buffer           | 32 bit nullable hash |
-| 0x0C   | Vertex Color Buffer | 32 bit nullable hash |
+| Offset | Description                      | Type                 |
+| ------ | -------------------------------- | -------------------- |
+| 0x00   | [Index Buffer](#index-buffers)   | 32 bit hash          |
+| 0x04   | [Vertex Buffer](#vertex-buffers) | 32 bit hash          |
+| 0x08   | UV Buffer                        | 32 bit nullable hash |
+| 0x0C   | Vertex Color Buffer              | 32 bit nullable hash |
 
 *Nullable here means that the hash can be 0xFFFFFFFF, which means that the buffer doesn't exist.*
 
 ## Vertex Buffers
 Vertex Buffers are the most basic form of a model. The file is a list of points, read as a int16 and then divided by the int16 max (32767) to get a float. (Sometimes known as a half float)
+
 Vertex positions are the first 8 bytes of each 16 byte line, with the last 8 bytes of it being the normals.
 Reading the X, Y & Z of a vertex is very simple, and should go something like this C++ example:
 
@@ -100,6 +101,8 @@ float z = (float)intz / 32767;
 ```
 This is the most simple way to get a model, and all you need to do is skip the next 10 bytes (vertex normals) and repeat until the end of the file.
 
+UVs and Vertex Colors are also a type of vertex buffers, but with a different length of data.
+
 **[Full example of how to parse a vertex buffer in C++](https://github.com/nblockbuster/D2StaticExtractor/blob/loadzone_bubble_testing/parsers.cpp#L3)**
 
 ## Index Buffers 
@@ -107,10 +110,6 @@ Index Buffers describe the faces of the model and how they connect the vertices.
 
 **[Full example of parsing an index buffer in C++](https://github.com/nblockbuster/D2StaticExtractor/blob/loadzone_bubble_testing/parsers.cpp#L84)**
 
-
-## In-Memory parsing & FBX
-
-For examples of in-memory parsing & FBX SDK usage, check out [the extractor](https://github.com/nblockbuster/D2StaticExtractor/blob/main/main.cpp)'s code.
 
 ## Classes & Entry types
 
